@@ -14,10 +14,14 @@ from SubnetTree import SubnetTree
 # admin:admin@localhost)
 ################################################################################
 DD_INTERFACE_LIST = [
-    ('external' , 'es1e'),
-    ('internal' , 'es1i'),
-    ('external' , 'vs1e.any'),
-    ('internal' , 'vs1i.any'),
+    ('external', 'vlan-ethseg1-ext'),
+    ('internal', 'vlan-ethseg1-int'),
+    ('external', 'ethseg2-ext'),
+    ('internal', 'ethseg2-int'),
+    #    ('external' , 'es1e'),
+    #    ('internal' , 'es1i'),
+    #    ('external' , 'vs1e.any'),
+    #    ('internal' , 'vs1i.any'),
 ]
 
 # for cmd type is 1 :all users and do log for INCLUDE subnets
@@ -27,7 +31,7 @@ INCLUDE = [
 # for cmd type is 2 : one user by src or dst so host must be in internal iprange
 HOST = [
 ]
-TOP_NUM = '1'
+TOP_NUM = '10000'
 ARRIVAL_RATE = '0'
 DOMAIN = 'localhost'
 USERNAME = 'admin'
