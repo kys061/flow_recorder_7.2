@@ -439,6 +439,10 @@ def archive_rotate(do_compress, archive_period):
                     delete_path = [FLOW_USER_LOG_FOLDER + '/' + str(archive_mon['archiving_month.year']) + '0' + str(archive_mon['archiving_month.month']),
                                 FLOW_LOG_FOLDER_PATH + '/' + str(archive_mon['archiving_month.year']) + '0' + str(archive_mon['archiving_month.month'])]
                     delete_folder_name = str(archive_mon['archiving_month.year']) + '0' + str(archive_mon['archiving_month.month'])
+                    if not os.path.isdir(delete_path[0]):
+                        os.makedirs(delete_path[0])
+                    if not os.path.isdir(delete_path[1]):
+                        os.makedirs(delete_path[1])
                     while ((month_count < archive_period + 1) and (int(get_root_disk_size().split('\n')[0]) > LIMIT_DISK_SIZE - 2) and (os.path.isdir(delete_path[0]) or os.path.isdir(delete_path[1]))):
                         # delete files archive month ago
                         try:
@@ -470,11 +474,19 @@ def archive_rotate(do_compress, archive_period):
                             delete_path = [FLOW_USER_LOG_FOLDER + '/' + str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']+month_count),
                                         FLOW_LOG_FOLDER_PATH + '/' + str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']+month_count)]
                             delete_folder_name = str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']+month_count)
+                        if not os.path.isdir(delete_path[0]):
+                            os.makedirs(delete_path[0])
+                        if not os.path.isdir(delete_path[1]):
+                            os.makedirs(delete_path[1])
                 # when archiving month is upper than OCT, ex) 10,11,12
                 else:
                     delete_path = [FLOW_USER_LOG_FOLDER + '/' + str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']),
                                 FLOW_LOG_FOLDER_PATH + '/' + str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month'])]
                     delete_folder_name = str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month'])
+                    if not os.path.isdir(delete_path[0]):
+                        os.makedirs(delete_path[0])
+                    if not os.path.isdir(delete_path[1]):
+                        os.makedirs(delete_path[1])
                     while ((month_count < archive_period + 1) and (int(get_root_disk_size().split('\n')[0]) > LIMIT_DISK_SIZE - 2) and (os.path.isdir(delete_path[0]) or os.path.isdir(delete_path[1]))):
                         # delete files archive month ago
                         try:
@@ -515,6 +527,10 @@ def archive_rotate(do_compress, archive_period):
                         delete_path = [FLOW_USER_LOG_FOLDER + '/' + str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']+month_count),
                                     FLOW_LOG_FOLDER_PATH + '/' + str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']+month_count)]
                         delete_folder_name = str(archive_mon['archiving_month.year']) + str(archive_mon['archiving_month.month']+month_count)
+                        if not os.path.isdir(delete_path[0]):
+                            os.makedirs(delete_path[0])
+                        if not os.path.isdir(delete_path[1]):
+                            os.makedirs(delete_path[1])
             except Exception as e:
                 logger_monitor.error("disk_size_check and delete files routine cannot be excuted, {}".format(e))
             else:
