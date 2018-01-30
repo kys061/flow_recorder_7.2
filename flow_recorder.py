@@ -75,7 +75,7 @@ for i in range(len(INTERFACE_LIST)):
     CMD.append("echo \'show int {} flows top {} by \
 average_rate select distress geolocation autonomous_system \
 retransmissions round_trip_time timeouts udp_jitter red_threshold_discards in_control\' |sudo \
-{} {}:{}@{}".format(INTERFACE_LIST[i], 
+{} {}:{}@{}".format(INTERFACE_LIST[i],
                     TOP_NUM, STM_SCRIPT_PATH, USERNAME, PASSWORD, DOMAIN))
 # RECORD_CMD_TYPE:2
 CMD_BY_SOURCEHOST = []
@@ -84,10 +84,10 @@ for host in HOST:
         for d_intf in D_INTERFACE_LIST['internal']:
             if intf == d_intf:
                 CMD_BY_SOURCEHOST.append("echo \'show interface {} flows with source_host={} \
-arrival_rate > {} top {} by average_rate select geolocation \
-autonomous_system  retransmissions round_trip_time timeouts' |sudo {} \
-{}:{}@{}".format(intf, host, ARRIVAL_RATE, TOP_NUM, STM_SCRIPT_PATH,
-                    USERNAME, PASSWORD, DOMAIN))
+                                       select distress geolocation autonomous_system \
+                                       retransmissions round_trip_time timeouts \
+                                       udp_jitter red_threshold_discards in_control delay' \
+                                       |sudo {} {}:{}@{}".format(intf, host, STM_SCRIPT_PATH, USERNAME, PASSWORD, DOMAIN))
 # RECORD_CMD_TYPE:2
 CMD_BY_DESTHOST = []
 for host in HOST:
@@ -95,10 +95,10 @@ for host in HOST:
         for d_intf in D_INTERFACE_LIST['external']:
             if intf == d_intf:
                 CMD_BY_DESTHOST.append("echo \'show interface {} flows with dest_host={} \
-arrival_rate > {} top {} by average_rate select geolocation \
-autonomous_system  retransmissions round_trip_time timeouts' |sudo {} \
-{}:{}@{}".format(intf, host, ARRIVAL_RATE, TOP_NUM, STM_SCRIPT_PATH,
-                    USERNAME, PASSWORD, DOMAIN))
+                                       select distress geolocation autonomous_system \
+                                       retransmissions round_trip_time timeouts \
+                                       udp_jitter red_threshold_discards in_control delay' \
+                                       |sudo {} {}:{}@{}".format(intf, host, STM_SCRIPT_PATH, USERNAME, PASSWORD, DOMAIN))
 ################################################################################
 
 ################################################################################
