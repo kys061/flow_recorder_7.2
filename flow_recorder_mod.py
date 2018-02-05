@@ -91,7 +91,6 @@ FIELD_NAMES = [
 'peer_packet_count',
 'disc_pkts',
 'peer_disc_pkts',
-'delay',
 'retrans',
 'peer_retrans',
 'rtt',
@@ -101,6 +100,7 @@ FIELD_NAMES = [
 'in_ctrl',
 'geoloc',
 'distress',
+'delay',
 'AS'
 ]
 
@@ -116,7 +116,7 @@ pattern_04 = r'Flows at [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\n\
 #pattern_05 = r'[,\s+]{23}'
 pattern_06 = r'Flows at'
 pattern_07 = r'Flows at '
-pattern_08 = r'Peer[ a-zA-Z]+\n[ a-zA-Z]+\n[ a-zA-Z]+Distress'
+pattern_08 = r'Peer[ a-zA-Z]+\n[ a-zA-Z]+\n[ a-zA-Z]+AS'
 #
 is_extracted = False
 #
@@ -808,7 +808,6 @@ class Flowrecorder:
         try:
             _intfs = subprocess_open(get_interface_cmd)
             _intfs = [__intf for __intf in _intfs[0].split('\n') if __intf]
-#            import pdb; pdb.set_trace()
             for _intf in _intfs:
                 if re.search(_intf, self._cmd):
                     m = re.search(_intf, self._cmd)
@@ -1089,7 +1088,6 @@ class Flowrecorder:
             flow_time = raw_data[m.start():m.end()]
             # Get fieldnames
             #fieldnames = parse_fieldnames(raw_data)
-#            import pdb; pdb.set_trace()
             fieldnames = list()
             fieldnames = copy.deepcopy(FIELD_NAMES)
             # Make field pattern
@@ -1162,7 +1160,6 @@ class Flowrecorder:
                                     skipinitialspace=True,
                                     fieldnames=fieldnames,
                                     quoting=csv.QUOTE_NONE)
-#            import pdb; pdb.set_trace()
             result = sorted(reader, key=lambda d: d['srchost'])
             # get length of rows
             rows_len = len(result)
@@ -1191,7 +1188,6 @@ class Flowrecorder:
                     labelLine.append('{0:<{1}}'.format(label, padding))  # generate a string with the variable whitespace padding
                     middleLine.append('{0:<{1}}'.format(middle, padding))
                     valueLine.append('{0:<{1}}'.format(value, padding))
-#                import pdb; pdb.set_trace()
                 # EXTERNAL, this case, stm9
                 for ex_int in self._ex_interface:
                     if row['in_if'] == ex_int:
