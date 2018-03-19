@@ -73,6 +73,10 @@ RECORDER_SCRIPT_FILENAME = r'flow_recorder.py'
 MONITOR_SCRIPT_FILENAME = r'flow_recorder_monitor.py'
 
 #
+#                                                                                                                                              Peer            Peer                  Peer                                    Round                          Red
+#               Ingress     Egress                  Source     Destination  Destination                                     Peer       Byte    Byte  Packet  Packet    Packets    Packets                              Peer   Trip     UDP            Threshold       In
+#       Flow  Interface  Interface     Source Host    Port            Host         Port  Application      Duration   Rate   Rate      Count   Count   Count   Count  Discarded  Discarded  Retransmissions  Retransmissions   Time  Jitter  Timeouts   Discards  Control  Geolocation  Distress     AS
+#
 FIELD_NAMES = [
 'flow',
 'in_if',
@@ -96,6 +100,8 @@ FIELD_NAMES = [
 'rtt',
 'udp_jitter',
 'touts',
+'rtt_server',
+'rtt_client',
 'reds',
 'in_ctrl',
 'geoloc',

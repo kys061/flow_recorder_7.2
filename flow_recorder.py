@@ -14,10 +14,10 @@ from SubnetTree import SubnetTree
 # admin:admin@localhost)
 ################################################################################
 DD_INTERFACE_LIST = [
-    ('external', 'vlan-ethseg1-ext'),
-    ('internal', 'vlan-ethseg1-int'),
-    ('external', 'ethseg2-ext'),
-    ('internal', 'ethseg2-int'),
+    ('external', 'external1'),
+    ('internal', 'internal1'),
+    ('external', 'external2'),
+    ('internal', 'internal2'),
     #    ('external' , 'es1e'),
     #    ('internal' , 'es1i'),
     #    ('external' , 'vs1e.any'),
@@ -39,7 +39,7 @@ PASSWORD = 'admin'
 STM_SCRIPT_PATH = r'/opt/stm/target/pcli/stm_cli.py'
 # For several interfaces(eg. iterate logging for interfaces(stm01, stm02) sequently)
 INTERVAL = 1    # type interval
-SCRIPT_INTERVAL = 1    # script interval
+SCRIPT_INTERVAL = 300    # script interval
 # Recording file type selecting(0: only csv, 1: only txt, 2:csv and txt)
 RECORD_FILE_TYPE = 0
 # Recording cmd type selecting(0: total, 1: all users, 2:one user by src or dst, 3: all of them)
@@ -49,7 +49,7 @@ RECORD_FILE_TYPE = 0
 2(flows of user by src or dst) : extracting user's ip in HOST.
 3(all of them) : extracting all explained above
 '''
-RECORD_CMD_TYPE = 1
+RECORD_CMD_TYPE = 0
 # Get current time
 CURRENTTIME_INIT = datetime.today().strftime("%Y:%m:%d")
 ################################################################################
@@ -74,7 +74,7 @@ CMD = []
 for i in range(len(INTERFACE_LIST)):
     CMD.append("echo \'show int {} flows top {} by \
 average_rate select distress geolocation autonomous_system \
-retransmissions round_trip_time timeouts udp_jitter red_threshold_discards in_control\' |sudo \
+retransmissions round_trip_time timeouts udp_jitter red_threshold_discards in_control delay rtt_server rtt_client\' |sudo \
 {} {}:{}@{}".format(INTERFACE_LIST[i],
                     TOP_NUM, STM_SCRIPT_PATH, USERNAME, PASSWORD, DOMAIN))
 # RECORD_CMD_TYPE:2
